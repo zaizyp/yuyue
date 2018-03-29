@@ -11,7 +11,7 @@ class Index extends Base
         return $this->fetch();
 
     }
-    public function test(){
+    public function verify_token(){
         if(input('nonce')&&input('timestamp')&&input('signature')){
             $nonce     = input('nonce');
             $token     = 'zyp123456';
@@ -33,6 +33,13 @@ class Index extends Base
             echo "<p>验证失败</p>";
         }
 
+    }
+    public function test(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc45ea54eb2e78e97&secret=256cd76671c87ca1abdc70c4f0de152d';
+        //$res = json_decode(curl_file_get_contents($url));
+        $res = file_get_contents($url);
+        $this->assign('test',$res);
+        return $this->fetch();
     }
 
 }
