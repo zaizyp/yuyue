@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
+    <meta charset="UTF-8">
+    <title>维修电脑</title>
+</head>
+<body ontouchstart="">
+<!-- 容器 -->
+<div class="weui-tab">
+    <div class="weui-navbar">
+        <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+            预约维修
+        </a>
+        <a class="weui-navbar__item" href="#tab2">
+            维修人员
+        </a>
+    </div>
+    <div class="weui-tab__bd">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell weui-cell_vcode">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">QQ</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="tel" placeholder="请输入号">
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_vcode">
+                    <div class="weui-cell__hd">
+                        <label class="weui-label">手机号</label>
+                    </div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="tel" placeholder="请输入手机号">
+                    </div>
+                </div>
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label for="" class="weui-label">时间</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" type="datetime-local" value="" placeholder="">
+                    </div>
+                </div>
+            </div>
+
+                <div class="weui-cells__title">描述电脑故障</div>
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+                            <div class="weui-textarea-counter"><span>0</span>/200</div>
+                        </div>
+                    </div>
+                </div>
+            <button  id="confirm_repair" class="weui-btn weui-btn_primary" onclick="go_to_repair_message()" >确定</button>
+            <a style=\"text-decoration:underline;color:red;float:right;top:100%;display:block;\" href="index.html"  onclick=\"add('" + i + "');\">返回主界面</a>
+        </div>
+
+        <div id="tab2" class="weui-tab__bd-item">
+            <h1>页面二</h1>
+            <a style=\"text-decoration:underline;color:red;float:right;top:100%;display:block;\" href="index.html"  onclick=\"add('" + i + "');\">返回主界面</a>
+        </div>
+    </div>
+</div>
+<script>
+    function go_to_repair_message() {
+        $.alert("自定义的消息内容", function() {
+            setTimeout("javascript:location.href='repair_message.html'", 0);
+        });
+    }
+</script>
+<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/swiper.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/city-picker.min.js"></script>
+</body>
+</html>
