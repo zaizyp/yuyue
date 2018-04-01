@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">layui 后台布局</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    巴厘岛
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">用户</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">管理员</a></dd>
+                        <dd><a href="javascript:;">微信用户</a></dd>
+                        <dd><a href="javascript:;">服务人员</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">订单</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">维修电脑</a></dd>
+                        <dd><a href="javascript:;">预约送水</a></dd>
+                        <dd><a href="javascript:;">代拿快递</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">微信</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">微信菜单</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">发布商品</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">菜单名称</label>
+                    <div class="layui-input-block" style="width: 200px;">
+                        <input type="text" name="menu" required  lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">菜单链接</label>
+                    <div class="layui-input-block" style="width: 400px;">
+                        <input type="text" name="url" required  lay-verify="required|url" placeholder="请输入菜单链接" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formWx">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © 景德镇学院
+    </div>
+</div>
+<script src="__STATIC__/layui/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['form','element'], function(){
+        var element = layui.element;
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formWx)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            console.log(data);
+            $.ajax({
+                type:'GET',
+                url:"{:url('admin/index/set_menu')}",
+                dataType : 'html',
+                data:JSON.stringify(data.field),
+                success:function (result) {
+                    if(result.status==1){
+                        layer.msg('菜单设置成功',{icon: 1});
+                        return;
+                    }
+                    layer.msg('菜单设置失败',{icon: 2});
+                }
+            })
+            //return false;
+        });
+    });
+</script>
+</body>
+</html>
