@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 
 return [
-    '__file__'  => ['hello.php','user.php'],
+    //'__file__'  => ['hello.php','user.php'],
     // 定义test模块的自动生成
     'admin'=>[
         '__dir__'   =>  ['controller','model'],
