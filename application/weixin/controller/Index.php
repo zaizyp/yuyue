@@ -35,9 +35,10 @@ class Index extends Base
 
     }
     public function test(){
-        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc45ea54eb2e78e97&secret=256cd76671c87ca1abdc70c4f0de152d';
+        //$url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc45ea54eb2e78e97&secret=256cd76671c87ca1abdc70c4f0de152d';
         //$res = json_decode(curl_file_get_contents($url));
-        $res = file_get_contents($url);
+        //$res = file_get_contents($url);
+        $res = read_token();
         $this->assign('test',$res);
         return $this->fetch();
     }

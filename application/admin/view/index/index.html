@@ -104,21 +104,22 @@
 <script src="__STATIC__/layui/layui.js"></script>
 <script>
     //JavaScript代码区域
-    layui.use(['form','element'], function(){
+    layui.use(['form','element','jquery'], function(){
         var element = layui.element;
         var form = layui.form;
+        var $ = layui.$;
 
         //监听提交
         form.on('submit(formWx)', function(data){
             layer.msg(JSON.stringify(data.field));
             console.log(data);
             $.ajax({
-                type:'GET',
-                url:"{:url('admin/index/set_menu')}",
+                type:'POST',
+                url:"{:url('admin/weixin/set_menu')}",
                 dataType : 'html',
                 data:JSON.stringify(data.field),
                 success:function (result) {
-                    if(result.status==1){
+                    if(result.errcode==1){
                         layer.msg('菜单设置成功',{icon: 1});
                         return;
                     }
