@@ -14,14 +14,14 @@ return [
     // 定义test模块的自动生成
     'admin'=>[
         '__dir__'   =>  ['controller','model'],
-        'controller'=>  ['Index','User','UserType'],
-        'model'     =>   ['User','UserType'],
+        'controller'=>  ['Index','WxUser','UserType'],
+        'model'     =>   ['WxUser','UserType'],
         'view'      =>  ['index/index','index/user'],
     ],
     'weixin'=>[
         '__dir__'   =>  ['controller','model'],
-        'controller'=>  ['Index','User','UserType'],
-        'model'     =>   ['User','UserType'],
+        'controller'=>  ['Index','WxUser','UserType'],
+        'model'     =>   ['WxUser','UserType'],
         'view'      =>  ['index/index','index/user'],
     ],
 ];

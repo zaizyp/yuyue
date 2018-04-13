@@ -29,38 +29,27 @@ function build_access_token(){
     $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.config('appID').'&secret='.config('appsecret');
     $data = json_decode(curl_get($url));
     if($data->access_token){
-        $token_file = fopen("token.txt","w") or die("Unable to open file!");//打开token.txt文件，没有会新建
-        fwrite($token_file,$data->access_token);//重写tken.txt全部内容
+        $token_file = fopen("token.json","w") or die("Unable to open file!");//打开token.txt文件，没有会新建
+        $token_data = array();
+        $token_data['access_token'] = $data->access_token;
+        $token_data['expires_in'] = time()+7000;
+        fwrite($token_file,json_encode($token_data));//重写tken.txt全部内容
         fclose($token_file);//关闭文件流
+        return $data->access_token;
     }else{
         return $data->errmsg;
     }
 }
 
-//设置定时器，每两小时执行一次build_access_token()函数获取一次access_token
-function set_interval(){
-    ignore_user_abort();//关闭浏览器仍然执行
-    set_time_limit(0);//让程序一直执行下去
-    $interval = 5400;//每隔一定时间运行
-    do{
-        build_access_token();
-        sleep($interval);//等待时间，进行下一次操作。
-    }while(true);
-}
-
 //读取token
 function read_token(){
-    if(!file_exists("token.txt")){
-        return set_interval();
+    if(!file_exists("token.json")){
+        return build_access_token();
     }
-    $token_file = fopen("token.txt", "r") or die("Unable to open file!");
-    $rs = fgets($token_file);
-    fclose($token_file);
-    if ($rs==''){
-        set_interval();
-        $token_file = fopen("token.txt", "r") or die("Unable to open file!");
-        $rs = fgets($token_file);
-        fclose($token_file);
+    $result = json_decode(file_get_contents('token.json'),1);
+    if (time() > $result['expires_in']){
+        return build_access_token();
+    }else{
+        return $result['access_token'];
     }
-    return $rs;
 }

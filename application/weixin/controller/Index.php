@@ -2,6 +2,7 @@
 namespace app\weixin\controller;
 
 use think\Request;
+use app\weixin\model\WxUser;
 
 class Index extends Base
 {
@@ -11,6 +12,7 @@ class Index extends Base
         return $this->fetch();
 
     }
+    //验证token
     public function verify_token(){
         if(input('nonce')&&input('timestamp')&&input('signature')){
             $nonce     = input('nonce');
@@ -34,6 +36,7 @@ class Index extends Base
         }
 
     }
+    //测试
     public function test(){
         //$url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxc45ea54eb2e78e97&secret=256cd76671c87ca1abdc70c4f0de152d';
         //$res = json_decode(curl_file_get_contents($url));
@@ -42,5 +45,19 @@ class Index extends Base
         $this->assign('test',$res);
         return $this->fetch();
     }
-
+    //登录
+    public function login(){
+        $code = input('code');
+        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.config('appID').'&secret='.config('appsecret').'&code='.$code.'&grant_type=authorization_code';
+        $result = json_decode(curl_get($url),1);
+        if(!WxUser::get(['openid'=>$result['openid']])){
+            $durl = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$result['access_token'].'&openid='.$result['openid'].'&lang=zh_CN';
+            $data = json_decode(curl_get($durl),1);
+            $wxUser = new WxUser($data);
+            $wxUser->allowField(true)->save();
+            //$this->assign('data',$data);
+        }
+        session('openid',$result['openid']);
+        return $this->fetch();
+    }
 }

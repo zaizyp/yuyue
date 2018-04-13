@@ -111,19 +111,28 @@
 
         //监听提交
         form.on('submit(formWx)', function(data){
-            layer.msg(JSON.stringify(data.field));
-            console.log(data);
+            layer.msg('菜单设置成功',{icon: 1});
             $.ajax({
-                type:'POST',
+                type:"POST",
                 url:"{:url('admin/weixin/set_menu')}",
-                dataType : 'html',
-                data:JSON.stringify(data.field),
+                dataType:"json",
+                data:{menu:JSON.stringify(data.field)},
                 success:function (result) {
-                    if(result.errcode==1){
+                    if(result.errcode==0){
                         layer.msg('菜单设置成功',{icon: 1});
-                        return;
+                    }else {
+                        layer.msg(result.errmsg,{icon: 2});
                     }
-                    layer.msg('菜单设置失败',{icon: 2});
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    console.log(XMLHttpRequest.responseText);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息
+                    console.log(textStatus);
+                    alert('网络失败，请刷新页面后重试');
                 }
             })
             //return false;
