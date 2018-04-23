@@ -8,16 +8,24 @@
 
 namespace app\weixin\controller;
 
+use think\Controller;
+use app\weixin\model\Order as WxOrder;
 
-class Order
+class Order extends Controller
 {
-    function notify(){
+    function computer_order(){
+        $pc_order = new WxOrder(input('post.'));
+        $pc_order->allowField(true)->save();
+        $this->notify_test();
+        return $this->fetch('index/success');
+    }
+    function notify_test(){
         $msg =       '{
             "touser":"oR3j8we7Y6lki2tWGoAv9OukIMQ8",
            "template_id":"FYrVIyZDWTVJrzR73lQgzVuar-5lMyollxy5C0EGtKQ",
            "data":{
                 "first": {
-                    "value":"您有新的订单通知！",
+                    "value":"您有新的订单通知！\n",
                        "color":"#173177"
                    },
                    "keyword1":{
@@ -41,7 +49,7 @@ class Order
                        "color":"#173177"
                    },
                    "remark":{
-                    "value":"买家备注：感谢卖家",
+                    "value":"买家备注：感谢卖家\n\n模版接口测试成功",
                        "color":"#173177"
                    }
                 }

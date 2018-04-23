@@ -5,5 +5,5 @@ use think\Model;
 
 class WxUser extends Model
 {
-
+    protected $autoWriteTimestamp = true;
 }

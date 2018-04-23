@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>电脑维修</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.
+">
+<link rel="stylesheet" href="__STATIC__/weui/lib/weui.min.css">
+<link rel="stylesheet" href="__STATIC__/weui/css/jquery-weui.css">
+<link rel="stylesheet" href="__STATIC__/weui/css/style.css">
+</head>
+<body ontouchstart>
+<!--主体-->
+<header class="wy-header">
+  <div class="wy-header-icon-back"><span></span></div>
+  <div class="wy-header-title">电脑维修</div>
+</header>
+<div class="weui-content">
+  <form action="{:url('weixin/order/computer_order')}" method="post">
+  <div class="weui-cells weui-cells_form">
+    <div class="weui-cells__title">联系人</div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">姓名</label></div>
+      <div class="weui-cell__bd"><input class="weui-input" name="name" type="text" placeholder="请输入姓名"></div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><label class="weui-label wy-lab">手机号</label></div>
+      <div class="weui-cell__bd"><input class="weui-input" name="phone" type="number" pattern="[0-9]*" placeholder="请输入手机号码"></div>
+    </div>
+    <div class="weui-cells__title">地址</div>
+    <div class="weui-cell weui-cell_select weui-cell_select-before">
+    	
+      <div class="weui-cell__hd">
+        <select class="weui-select" name="dormitory">
+          <option value="13栋">13栋</option>
+          <option value="14栋">14栋</option>
+          <option value="15栋">15栋</option>
+          <option value="16栋">16栋</option>
+        </select>
+      </div>
+      <div class="weui-cell__bd">
+      <input class="weui-input" name="address" type="number" pattern="[0-9]*" placeholder="请输入寝室号">
+      </div>
+    </div>
+    <div class="weui-cells__title">详细信息</div>
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <textarea class="weui-textarea" name="message" placeholder="请输入电脑信息"></textarea>
+      </div>
+    </div>
+  </div> 
+  <div class="weui-btn-area">
+    <input class="weui-btn weui-btn_primary" id="showTooltips" type="submit" value="提交订单" >
+  </div>
+  </form>
+
+</div>
+
+<script src="__STATIC__/weui/lib/jquery-2.1.4.js"></script>
+<script src="__STATIC__/weui/lib/fastclick.js"></script>
+<script type="text/javascript" src="__STATIC__/weui/js/jquery.Spinner.js"></script>
+<script>
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+
+<script src="__STATIC__/weui/js/jquery-weui.js"></script>
+<script src="__STATIC__/weui/js/city-picker.js"></script>
+
+</body>
+</html>
