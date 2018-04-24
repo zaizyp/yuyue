@@ -71,9 +71,9 @@ class Index extends Base
             $this->assign('data',$wx_user);
         }
         session('openid',$result['openid']);
-        return $this->fetch();
+        return $this->fetch('index/index');
     }
-    //添加电脑维修订单
+    //下单界面
     public function add_order($order_type){
         switch ($order_type){
             case 'pc':  return $this->fetch('index/add_pc');

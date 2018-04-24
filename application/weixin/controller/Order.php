@@ -13,10 +13,18 @@ use app\weixin\model\Order as WxOrder;
 
 class Order extends Controller
 {
+    //电脑维修订单的处理
     function computer_order(){
+        //将输入的数据存储在数据库中
         $pc_order = new WxOrder(input('post.'));
+        $pc_order->order_type = 'pc';
         $pc_order->allowField(true)->save();
-        $this->notify_test();
+        //获取该订单所属范围的维修人员，并下发模版消息通知
+        $waiters = db('waiter')->where('service_scope',$pc_order->dormitory)->column('openid');
+        foreach ($waiters as $waiter){
+            notify("电脑维修订单",$pc_order,$waiter);
+        }
+        //$this->notify_test();
         return $this->fetch('index/success');
     }
     function notify_test(){
