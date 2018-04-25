@@ -18,7 +18,7 @@
   <div class="wy-header-title">电脑维修</div>
 </header>
 <div class="weui-content">
-  <form action="{:url('weixin/order/computer_order')}" method="post">
+  <form action="{:url('weixin/order/add_computer_order')}" method="post">
   <div class="weui-cells weui-cells_form">
     <div class="weui-cells__title">联系人</div>
     <div class="weui-cell">
@@ -34,10 +34,10 @@
     	
       <div class="weui-cell__hd">
         <select class="weui-select" name="dormitory">
-          <option value="13栋">13栋</option>
-          <option value="14栋">14栋</option>
-          <option value="15栋">15栋</option>
-          <option value="16栋">16栋</option>
+
+          {volist name="list" id="vo"}
+          <option value="{$vo.dormitory_number}">{$vo.dormitory_number}</option>
+          {/volist}
         </select>
       </div>
       <div class="weui-cell__bd">

@@ -47,36 +47,43 @@ class Index extends Base
     }
     //我的
     function mine(){
+        $user = WxUser::get(['openid'=>session('openid')]);
+        $this->assign('user',$user);
         return $this->fetch();
     }
     //登录
     public function login(){
-        //获取微信传过来的code
-        $code = input('code');
-        //获取用户信息
-        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.config('appID').'&secret='.config('appsecret').'&code='.$code.'&grant_type=authorization_code';
-        $result = json_decode(curl_get($url),1);
-        //判断用户是否第一次登录
-        $wx_user = WxUser::get(['openid'=>$result['openid']]);
-        if(!$wx_user){
-            $durl = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$result['access_token'].'&openid='.$result['openid'].'&lang=zh_CN';
-            $data = json_decode(curl_get($durl),1);
-            $wxUser = new WxUser($data);
-            $wxUser->login_times = 1;
-            $wxUser->allowField(true)->save();
-            $this->assign('data',$wxUser);
-        }else{
-            $wx_user->login_times++;
-            $wx_user->save();
-            $this->assign('data',$wx_user);
+        if(!session('?openid')){
+            //获取微信传过来的code
+            $code = input('code');
+            //获取用户信息
+            $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.config('appID').'&secret='.config('appsecret').'&code='.$code.'&grant_type=authorization_code';
+            $result = json_decode(curl_get($url),1);
+            //判断用户是否第一次登录
+            $wx_user = WxUser::get(['openid'=>$result['openid']]);
+            if(!$wx_user){
+                $durl = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$result['access_token'].'&openid='.$result['openid'].'&lang=zh_CN';
+               $data = json_decode(curl_get($durl),1);
+               $wxUser = new WxUser($data);
+               $wxUser->login_times = 1;
+               $wxUser->allowField(true)->save();
+                $this->assign('data',$wxUser);
+            }else{
+                $wx_user->login_times++;
+                $wx_user->save();
+                $this->assign('data',$wx_user);
+            }
+            session('openid',$result['openid']);
         }
-        session('openid',$result['openid']);
         return $this->fetch('index/index');
     }
     //下单界面
     public function add_order($order_type){
         switch ($order_type){
-            case 'pc':  return $this->fetch('index/add_pc');
+            case 'pc':
+                $list = db('dormitory')->select();
+                $this->assign('list',$list);
+                return $this->fetch('index/add_pc');
                 break;
             case 'water':return $this->fetch('index/add_water');
                 break;
