@@ -25,7 +25,7 @@ function notify($tittle,$order,$touser){
                        "color":"#173177"
                    },
                    "keyword5": {
-                    "value":"无需付款",
+                    "value":"'.$order->status.'",
                        "color":"#173177"
                    },
                    "remark":{

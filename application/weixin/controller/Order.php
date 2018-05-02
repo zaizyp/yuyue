@@ -29,6 +29,7 @@ class Order extends Controller
         //将输入的数据存储在数据库中
         $pc_order = new WxOrder(input('post.'));
         $pc_order->order_type = 'pc';
+        $pc_order->status = 3;
         $pc_order->openid = session('openid');
         $pc_order->allowField(true)->save();
         //获取该订单所属范围的维修人员，并下发模版消息通知

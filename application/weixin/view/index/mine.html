@@ -42,7 +42,9 @@
       <div class="weui-flex">
         <div class="weui-flex__item">
           <a href="all_orders.html" class="center-ordersModule">
-            <span class="weui-badge" style="position: absolute;top:5px;right:10px; font-size:10px;">2</span>
+            {neq name="$num['paidan']" value="0"}
+              <span class="weui-badge" style="position: absolute;top:5px;right:10px; font-size:10px;">{$num['paidan']}</span>
+            {/neq}
             <div class="imgicon"><img src="__STATIC__/weui/images/center-icon-order-dfk.png" /></div>
             <div class="name">待派单</div>
           </a>
@@ -56,13 +58,18 @@
         </div>-->
         <div class="weui-flex__item">
           <a href="all_orders.html" class="center-ordersModule">
+            {neq name="$num['queren']" value="0"}
+              <span class="weui-badge" style="position: absolute;top:5px;right:10px; font-size:10px;">{$num['queren']}</span>
+            {/neq}
             <div class="imgicon"><img src="__STATIC__/weui/images/center-icon-order-dsh.png" /></div>
             <div class="name">待确认</div>
           </a>
         </div>
         <div class="weui-flex__item">
           <a href="orders.html" class="center-ordersModule">
-            <span class="weui-badge" style="position: absolute;top:5px;right:10px; font-size:10px;">2</span>
+            {neq name="$num['pingjia']" value="0"}
+              <span class="weui-badge" style="position: absolute;top:5px;right:10px; font-size:10px;">{$num['pingjia']}</span>
+            {/neq}
             <div class="imgicon"><img src="__STATIC__/weui/images/center-icon-order-dpj.png" /></div>
             <div class="name">待评价</div>
           </a>
