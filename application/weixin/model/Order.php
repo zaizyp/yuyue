@@ -12,4 +12,10 @@ use think\Model;
 class Order extends Model
 {
     protected $autoWriteTimestamp = true;
+
+    public function getStatusAttr($value)
+    {
+        $status = [-1=>'删除',0=>'待派单',1=>'已完成',2=>'待确认',3=>'待评价'];
+        return $status[$value];
+    }
 }

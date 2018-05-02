@@ -45,12 +45,7 @@ class Index extends Base
         $this->assign('test',$res);
         return $this->fetch();
     }
-    //我的
-    function mine(){
-        $user = WxUser::get(['openid'=>session('openid')]);
-        $this->assign('user',$user);
-        return $this->fetch();
-    }
+
     //登录
     public function login(){
         if(!session('?openid')){
